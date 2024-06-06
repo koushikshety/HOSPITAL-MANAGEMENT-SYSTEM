@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Breadcrumb -->
+				<!-- Page Title -->
+				<div class="container mt-0">
+					<div class="row breadcrumb-bar">
+						<div class="col-md-6">
+							<h3 class="block-title">Doctors</h3>
+						</div>
+						<div class="col-md-6">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="/">
+										<span class="ti-home"></span>
+									</a>
+								</li>
+								<li class="breadcrumb-item">Doctors</li>
+								<li class="breadcrumb-item active">All Doctors</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			<!-- /Page Title -->
+
+			<!-- /Breadcrumb -->
+			<!-- Main Content -->
+			<div class="container">
+
+				<div class="row">
+					<!-- Widget Item -->
+					<div class="col-md-12">
+						<div class="widget-area-2 proclinic-box-shadow">
+							<h3 class="widget-title">Doctors List</h3>
+							<main id="success-msg">
+								{% for msg in  messages %}
+								
+								{{msg}}
+								
+								{% endfor %}
+								</main>
+								<br><br>
+							<div class="table-responsive mb-3">
+								<table id="tableId" class="table table-bordered table-striped">
+									<thead>
+										
+										<tr>
+											
+											<th>Doctor ID</th>
+											<th>Doctor_Adder</th>
+											<th>Doctor Name</th>
+											<th>Gender</th>
+											<!-- <th>Phone</th> -->
+											<!-- <th>Date_Of_Birth</th> -->
+											<!-- <th>Age</th> -->
+											<!-- <th>Experience <small>(in Years)</small></th> -->
+											<th>Specialization</th>  <!-- Specialization --->
+																	<!-- Availability -->
+											<th>Doctor details</th>
+											<!-- <th>Email</th> -->
+											<!-- <th>Address</th> -->
+											<th>Status</th>
+											
+											<th><strong>View</strong></th>
+											<th><strong>Delete</strong></th>
+											<th><strong>Edit</strong></th>
+											
+									</thead>
+									<tbody id="data">										{% for doctor_detail in doctor_detail %}
+										<tr>
+											
+											<td>{{ doctor_detail.d_id }}</td>
+											<td>{{ doctor_detail.d_add }}</td>
+											<td>{{ doctor_detail.doctor_Name }}</td>
+											<td>{{ doctor_detail.gender }}</td>
+											<!-- <td>{{ doctor_detail.phone }}</td> -->
+											<!-- <td>{{ doctor_detail.date_of_birth }}</td> -->
+											<!-- <td>{{ doctor_detail.age }}</td> -->
+											<!-- <td>{{ doctor_detail.experience }}</td> -->
+											<td>{{ doctor_detail.specialization }}</td>
+											<td>{{ doctor_detail.doctor_details }}</td>
+											<!-- <td>{{ doctor_detail.email }}</td> -->
+											<!-- <td>{{ doctor_detail.address }}</td> -->
+											<td>
+												<span class="badge badge-success">{{ doctor_detail.status }}</span>
+											</td>
+											{% if user.username == doctor_detail.d_add %}
+
+											<td><a class="btn btn-info animate-on-hover" href="{% url 'd_about' id=doctor_detail.id %}"><span class="ti-eye"> Views</span></a></td>
+											<td><a class="btn btn-danger animate-on-hover" href="{% url 'delete02' id=doctor_detail.id %}"><span class="ti-trash"> Delete</span></a></td>
+											<td><a class="btn btn-success mb-2 animate-on-hover" href="{% url 'edit_doctor' id=doctor_detail.id %}"><span class="ti-pencil-alt"> Edit</span></a></td>
+											{% else %}
+											<td>❌</td>
+											<td>❌</td>
+									        <td>❌</td>
+											{% endif %}
+
+										</tr>
+										{% endfor %}
+
+									</tbody>
+                                </table>
+                                
+								<script>
+									function search() {
+									const searchTerm = document.getElementById("search_input").value.toLowerCase();
+									const tableBody = document.getElementById("data");
+									const tableRows = tableBody.querySelectorAll("tr");
+									
+									// Clear previous results (optional)
+									tableBody.innerHTML = ""; 
+																		  // You can uncomment this line if you want to clear previous results before displaying new ones.
+									
+									for (const row of tableRows) {
+									const textContent = row.textContent.toLowerCase();
+									if (textContent.includes(searchTerm)) {
+									tableBody.appendChild(row.cloneNode(true)); // Append matching rows
+									}
+									}
+									}
+									</script>
+								<div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Widget Item -->
+				</div>
+			</div>
+			<!-- /Main Content -->
+
+	
+{% endblock %}
