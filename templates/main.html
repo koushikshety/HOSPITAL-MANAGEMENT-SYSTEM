@@ -6,7 +6,7 @@
 <div class="container mt-0">
     <div class="row breadcrumb-bar">
         <div class="col-md-6">
-            <h3 class="block-title">All Statistics </h3>
+            <h3 class="block-title">All Statistics</h3>
         </div>
         <div class="col-md-6">
             <ol class="breadcrumb">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Users</h4>
-                    <span class="numeric color-red">{{user_count}}</span>
+                    <span class="numeric color-red">{{ user_count }}</span>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Patients</h4>
-                    <span class="numeric color-silver">{{pa_count}}</span>
+                    <span class="numeric color-silver">{{ pa_count }}</span>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Doctors</h4>
-                    <span class="numeric color-blue">{{doc_count}}</span>
+                    <span class="numeric color-blue">{{ doc_count }}</span>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Appointments</h4>
-                    <span class="numeric color-green">{{Appoint_count}}</span>
+                    <span class="numeric color-green">{{ Appoint_count }}</span>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Total Payments</h4>
-                    <span class="numeric color-yellow">{{py_count}}</span>
+                    <span class="numeric color-yellow">{{ py_count }}</span>
                 </div>
             </div>
         </div>
@@ -98,171 +98,95 @@
                 </div>
                 <div class="widget-right">
                     <h4 class="wiget-title">Rooms</h4>
-                    <span class="numeric color-red">{{room_count}}</span>
+                    <span class="numeric color-red">{{ room_count }}</span>
                 </div>
             </div>
         </div>
-<!-- part2 code -->
-<div class="row">
-    <!-- Widget Item  here -->
-    <script>
-        const pa_count1 = "{{ pa_count }}";  // Replace with actual value from server
-        const Appoint_count1 = "{{ Appoint_count }}";  // Replace with actual value from server
-        const py_count1 ="{{ py_count }}";  // Replace with actual value from server
-    </script>
+        <!-- /Widget Item -->
+    </div>
 
-    <div class="col-md-6">
-        <div class="widget-area-2 proclinic-box-shadow">
-            <h3 class="widget-title">Patient,Doctor and Payments Comparison</h3>
-            <canvas id="myChart0" width="500" height="200"></canvas>
-
-            <script>
-                const ctx = document.getElementById('myChart0').getContext('2d');
-
-                const labels = ['Patient', 'Appointment', 'Payment'];
-                const data = {
-                    labels,
-                    datasets: [{
-                        label: 'Total',
-                        data: [pa_count1, Appoint_count1, py_count1],  // Use variables directly
-                        backgroundColor: ['#241d3f','#18df18', '#ffd700'],
-                        borderColor: 'black',
-                        borderWidth: 1  
-                    }]
-                };
-
-                const myChart0 = new Chart(ctx, {
-                    type: 'bar',
-                    data: data,
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
+    <!-- Part 2 Code -->
+    <div class="row">
+        <!-- Widget Item -->
+        <div class="col-md-6">
+            <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Patient, Doctor, and Payments Comparison</h3>
+                <canvas id="myChart0" width="500" height="200"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart0').getContext('2d');
+                    const labels = ['Patient', 'Appointment', 'Payment'];
+                    const data = {
+                        labels,
+                        datasets: [{
+                            label: 'Total',
+                            data: [{{ pa_count }}, {{ Appoint_count }}, {{ py_count }}],
+                            backgroundColor: ['#241d3f', '#18df18', '#ffd700'],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        }]
+                    };
+                    const myChart0 = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            scales: {
+                                y: {
                                     beginAtZero: true
                                 }
-                            }]
+                            }
                         }
-                    }
-                });
-            </script>
+                    });
+                </script>
+            </div>
         </div>
-    </div>
+        <!-- /Widget Item -->
 
-    <!-- /Widget  here -->
-    <!-- Widget Item -->
-    <div class="col-md-6">
-        <div class="widget-area-2 proclinic-box-shadow">
-            <h3 class="widget-title"> Patients Year by Year</h3>
-            <canvas id="myChart" width="200" height="200"></canvas>
-            <script>
-                const ctx1 = document.getElementById('myChart').getContext('2d');
-                const labels1 = ['Patients', 'Revenue', 'Doctors'];
-                const data1 = {
-                    labels1,
-                    datasets: [{
-                        label: 'Total',
-                        data: [pa_count1, Appoint_count1, py_count1],
-                        backgroundColor: ['#241d3f','#18df18', '#ffd700'],
-                        borderColor: 'black',
-                        borderWidth: 1
-                    }]
-                };
-                const myChart = new Chart(ctx1, {
-                    type: 'pie',
-                    data: data1,
-                    options: {
-                        responsive: false, // Disable responsiveness
-                        maintainAspectRatio: false // Prevents deformation
-                    }
-                });
-            </script>
+        <!-- Widget Item -->
+        <div class="col-md-6">
+            <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Patients Year by Year</h3>
+                <canvas id="myChart" width="200" height="200"></canvas>
+                <script>
+                    const ctx1 = document.getElementById('myChart').getContext('2d');
+                    const labels1 = ['Patients', 'Revenue', 'Doctors'];
+                    const data1 = {
+                        labels: labels1,
+                        datasets: [{
+                            label: 'Total',
+                            data: [{{ pa_count }}, {{ Appoint_count }}, {{ py_count }}],
+                            backgroundColor: ['#241d3f', '#18df18', '#ffd700'],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        }]
+                    };
+                    const myChart = new Chart(ctx1, {
+                        type: 'pie',
+                        data: data1,
+                        options: {
+                            responsive: false,
+                            maintainAspectRatio: false
+                        }
+                    });
+                </script>
+            </div>
         </div>
-        
+        <!-- /Widget Item -->
+
+        <!-- Color Box -->
+        <div id="list">
+            <ul>
+                <li class="color-blacks">Patients</li>
+                <li class="color-aquas">Doctors</li>
+                <li class="color-greens">Appointments</li>
+                <li class="color-golds">Payments</li>
+                <li class="color-reds">Rooms</li>
+                <li class="color-pinks">Users</li>
+            </ul>
+        </div>
+        <!-- /Color Box -->
     </div>
+    <!-- /Part 2 Code -->
 
-    <!-- color box -->
-    <div id="list">
-        <ul>
-            <li class="color-blacks">Patients</li>
-            <li class="color-aquas">Doctors</li>
-            <li class="color-greens">Appointments</li>
-            <li class="color-golds">Payments</li>
-            <li class="color-reds">Rooms</li>
-            <li class="color-pinks">Users</li>
-        </ul>
-    </div>
-    <!-- /color box -->
-</div>
-</div>
-
-<!-- internal css starts here -->
-<style>
-
-	#list{
-		width: 100%;
-		margin-left: 7px;
-		margin-top: 3px;
-		background-color: aqua;
-		border: 2px solid black;
-	}
-	#list li{
-		list-style: none;
-		display: inline-block;
-		
-	}
-	.color-reds{
-		background-color:red ;
-		color: white;
-		padding: 3px;
-		border-radius: 10px;
-		cursor: pointer;
-	}	
-	.color-greens{
-		background-color: #18df18;
-				color: white;
-		padding: 3px;
-		border-radius: 10px;
-
-	}
-	
-	.color-golds {
-		background-color:#ffa600 ;
-				color: white;
-		padding: 3px;
-		border-radius: 10px;
-	}
-	
-	.color-pinks{
-		background-color: #d41434;
-				color: white;
-		padding: 3px;
-		border-radius: 10px;
-	}
-	
-	.color-blacks{
-		background-color:#241d3f ;
-				color: white;
-		padding: 3px;
-		border-radius: 10px;
-	}
-	
-	.color-aquas{
-		border: 1px solid black;
-		background-color:aqua ;
-				color: white;
-		padding: 3px;
-		border-radius: 10px;
-	}
-	#myChart {
-		border-radius: 50px;
-		background-color: #2cb6e0;
-	}
-
-	
-</style>
-
-<!-- internal css ends here -->
-<!-- /part2 code -->
     <div class="row">
         <!-- Widget Item -->
         <div class="col-md-12">
@@ -299,6 +223,8 @@
             </div>
         </div>
         <!-- /Widget Item -->
+
+        <!-- Widget Item -->
         <div class="col-md-12">
             <div class="widget-area-2 proclinic-box-shadow">
                 <h3 class="widget-title">Available Doctors</h3>
@@ -307,8 +233,8 @@
                         <thead>
                             <tr>
                                 <th>Doctor</th>
-                                <th>specialization</th>
-                                <th>status</th>
+                                <th>Specialization</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>

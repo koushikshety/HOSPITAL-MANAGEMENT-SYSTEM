@@ -135,16 +135,32 @@ def generate_appoint_id():
         new_id = 1
     return f"A{new_id:02}"
 
-def generate_payment_id():
-    """Generates a new unique patient ID starting with 'P' and a two-digit number."""
-    last_payment = Payment.objects.order_by('-py_id').first()
-    if last_payment:
-        last_id = int(last_payment.py_id[1:])
-        new_id = last_id + 1
-    else:
-        new_id = 1
-    return f"PY{new_id:02}"
+# def generate_payment_id():
+#     """Generates a new unique patient ID starting with 'P' and a two-digit number."""
+#     last_payment = Payment.objects.order_by('-py_id').first()
+#     if last_payment:
+#         last_id = int(last_payment.py_id[1:])
+#         new_id = last_id + 1
+#     else:
+#         new_id = 1
+#     return f"{new_id:02}"
 
+def generate_payment_id():
+    last_payment = Payment.objects.last()  # Get the last payment record
+    if last_payment:
+        # Extract the numeric part of the py_id (assuming format like 'Y02')
+        numeric_part = last_payment.py_id[1:]  # Remove the first character (e.g., 'Y')
+        try:
+            last_id = int(numeric_part)  # Convert the numeric part to an integer
+        except ValueError:
+            # Handle the case where the numeric part is not a valid integer
+            last_id = 0  # Default to 0 or handle the error as needed
+    else:
+        last_id = 0  # If no payments exist, start from 0
+
+    # Increment the last ID and format it back into the desired format
+    new_id = f"Y{last_id + 1:02d}"  # Format as 'Y01', 'Y02', etc.
+    return new_id
 
 
 
@@ -196,7 +212,7 @@ def ADD_DOCTOR(request):
     if request.method == "POST":
         d_add = request.POST.get('d_add')
         doctor_name = request.POST.get('doctor_name')
-        dob = request.POST.get('dob')
+        
         specialization = request.POST.get('specialization')
         experience = request.POST.get('experience')
         age = request.POST.get('age')
@@ -204,7 +220,7 @@ def ADD_DOCTOR(request):
         email = request.POST.get('email')
         doctor_details = request.POST.get('doctor_details')
         gender = request.POST.get('gender')
-        address = request.POST.get('address')
+        
         status = request.POST.get('status')
         d_id = generate_doctor_id()
 
@@ -212,14 +228,14 @@ def ADD_DOCTOR(request):
             d_id = d_id,
             d_add = d_add,
             doctor_Name = doctor_name,
-            date_of_birth = dob,
+            
             specialization =specialization,
             experience =experience,
             age = age, 
             phone = phone,
             gender = gender,
             email = email,
-            address=address,
+            
             doctor_details=doctor_details,
             status = status,
             
