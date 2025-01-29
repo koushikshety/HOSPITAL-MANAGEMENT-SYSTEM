@@ -5,16 +5,12 @@
 
 }
 body{
-    width: auto;
-    height: 100vh;
-    border:3px solid rgb(61, 30, 171);
-    /* background-image:url("images2/hb2.jpg") ; */
+    width: 100%;
     background: url("images2/heart.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    border: outset;
-    border: inset;
+
 
 }
 /* input #id_email{

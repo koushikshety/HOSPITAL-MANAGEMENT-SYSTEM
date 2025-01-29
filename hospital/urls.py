@@ -17,7 +17,7 @@ urlpatterns = [
     path('base', views.BASE, name='base'),
     # here comes the login,sing up and logout urls
     path("accounts/",include("django.contrib.auth.urls")),
-    path("accounts/sign_up", signup_view, name="sign_up"),
+    path('accounts/sign_up', views.signup_view, name='signup_view'),
     path('logout/', views.logout_view, name='logout'),
     # here comes indivisual urls
     path('terms', views.TERMS, name='terms'),

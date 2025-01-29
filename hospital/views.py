@@ -207,7 +207,6 @@ def ADD_PATIENT(request):
 
 
 @allowed_users(allowed_roles=['admins', 'doctors'])
-
 def ADD_DOCTOR(request):
     if request.method == "POST":
         d_add = request.POST.get('d_add')
